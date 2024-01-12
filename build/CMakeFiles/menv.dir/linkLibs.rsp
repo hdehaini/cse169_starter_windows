@@ -1,0 +1,1 @@
+  -L"C:/Users/hsdeh/OneDrive/Documents/Coding-Projects/UCSD/CSE-169/cse169_starter_windows/lib"  -lopengl32 -lglu32 -lglew32s -lglfw3 -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32 
