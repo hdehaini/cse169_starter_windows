@@ -1,6 +1,6 @@
 #include "glm/gtx/euler_angles.hpp"
-#include "DOF.h"
-#include "Tokenizer.h"
+#include "./DOF.h"
+#include "./Tokenizer.h"
 #include <vector>
 
 class Joint {
