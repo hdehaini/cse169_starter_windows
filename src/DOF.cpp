@@ -17,7 +17,7 @@ void DOF::SetValue(float v) {
     } else {
         value = v;
     }
-    value = v;
+    // value = v;
 }
 
 float DOF::GetValue() {

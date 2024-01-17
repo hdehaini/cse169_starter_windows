@@ -51,13 +51,19 @@ bool Joint::Load(Tokenizer &token) {
             boxmax.z = token.GetFloat();
 
         } else if(strcmp(temp,"rotxlimit")==0){
-            dofs[0]->SetMinMax(token.GetFloat(), token.GetFloat());
+            float mn = token.GetFloat();
+            float mx = token.GetFloat();
+            dofs[0]->SetMinMax(mn, mx);
 
         } else if(strcmp(temp,"rotylimit")==0){
-            dofs[1]->SetMinMax(token.GetFloat(), token.GetFloat());
+            float mn = token.GetFloat();
+            float mx = token.GetFloat();
+            dofs[1]->SetMinMax(mn, mx);
 
         } else if(strcmp(temp,"rotzlimit")==0){
-            dofs[2]->SetMinMax(token.GetFloat(), token.GetFloat());
+            float mn = token.GetFloat();
+            float mx = token.GetFloat();
+            dofs[2]->SetMinMax(mn, mx);
 
         } else if(strcmp(temp,"pose")==0){
             dofs[0]->SetValue(token.GetFloat());

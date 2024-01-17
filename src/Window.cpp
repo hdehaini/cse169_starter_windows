@@ -40,7 +40,7 @@ bool Window::initializeObjects() {
     // cube = new Cube();
     // cube = new Cube(glm::vec3(-1, 0, -2), glm::vec3(1, 1, 1));
     skeleton = new Skeleton();
-    filename = "wasp.skel";
+    // filename = "wasp.skel";
     skeleton->Load(filename);
 
     return true;

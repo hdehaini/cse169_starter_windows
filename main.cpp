@@ -43,10 +43,19 @@ void print_versions() {
 #endif
 }
 
-int main(void) {
+int main(int argc, char *argv[]) {
     // Create the GLFW window.
     GLFWwindow* window = Window::createWindow(800, 600);
     if (!window) exit(EXIT_FAILURE);
+
+    if(argc == 1){
+        char* file = "test.skel";
+        Window::filename = file;
+    } else {
+        Window::filename = argv[1];
+    }
+
+    // filename = argv[1];
 
     // Print OpenGL and GLSL versions.
     print_versions();
