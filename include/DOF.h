@@ -1,3 +1,7 @@
+#pragma once
+
+#include "core.h"
+
 class DOF {
 public:
     DOF();

@@ -2,6 +2,9 @@ cmake_minimum_required(VERSION 3.16)
 
 project(menv)
 
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
 # Add source files
 set(
     SOURCES
@@ -11,17 +14,14 @@ set(
     src/Shader.cpp
     src/Tokenizer.cpp
     src/Window.cpp
+    src/DOF.cpp
+    src/joint.cpp
+    src/Skeleton.cpp
 )
 
 # Add header files
 set(
     HEADERS
-    include/core.h
-    include/Camera.h
-    include/Cube.h
-    include/Shader.h
-    include/Tokenizer.h
-    include/Window.h
 )
 
 # Require GL

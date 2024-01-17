@@ -1,6 +1,9 @@
+#pragma once
+
 #include "glm/gtx/euler_angles.hpp"
-#include "./DOF.h"
-#include "./Tokenizer.h"
+#include "DOF.h"
+#include "Tokenizer.h"
+#include "Cube.h"
 #include <vector>
 
 class Joint {
@@ -8,14 +11,21 @@ public:
     Joint();
     ~Joint();
 
-    void Update();
-    void Load(Tokenizer &t);
+    void Update(glm::mat4 parentWorld);
+    bool Load(Tokenizer &token);
     void AddChild(Joint* child);
-    void Draw();
+    void Draw(const glm::mat4& viewProjMtx, GLuint shader);
 
 private:
     glm::mat4 local;
     glm::mat4 world;
-    std::vector<DOF*> dofs;
+    DOF *dx = new DOF;
+    DOF *dy = new DOF;
+    DOF *dz = new DOF;
+    std::vector<DOF*> dofs = {dx, dy, dz};
     std::vector<Joint*> children;
+    glm::vec3 offset;
+    glm::vec3 boxmin;
+    glm::vec3 boxmax;
+    Cube *cube;
 };

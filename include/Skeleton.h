@@ -1,3 +1,5 @@
+#pragma once
+
 #include "Joint.h"
 #include "Tokenizer.h"
 
@@ -7,8 +9,8 @@ public:
     ~Skeleton();
 
     bool Load(const char *file);
-    void Update();
-    void Draw();
+    void Update(glm::mat4 parentWorld);
+    void Draw(const glm::mat4& viewProjMtx, GLuint shader);
 
 private:
     Joint* root;
