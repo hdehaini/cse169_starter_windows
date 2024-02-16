@@ -3,6 +3,7 @@
 
 Skeleton::Skeleton() {
     root = new Joint();
+    World = glm::mat4(1.f);
 }
 
 Skeleton::~Skeleton() {
@@ -22,11 +23,24 @@ bool Skeleton::Load(const char *file) {
 }
 
 
-void Skeleton::Update(glm::mat4 parentWorld) {
-    root->Update(parentWorld);
+void Skeleton::Update() {
+    root->Update(World);
 }
 
 void Skeleton::Draw(const glm::mat4& viewProjMtx, GLuint shader) {
     root->Draw(viewProjMtx, shader);
 }
 
+void Skeleton::populateDOFVector(Joint* joint) {
+    allJoints.push_back(joint);
+    for (Joint* child : joint->children){
+        for(DOF* dof : child->dofs){
+            allDOFs.push_back(dof);
+        }
+        populateDOFVector(child);
+    }
+}
+
+glm::mat4 Skeleton::GetWorldMatrix(int joint){
+    return allJoints[joint]->world;
+}

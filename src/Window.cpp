@@ -8,8 +8,13 @@ const char* Window::windowTitle = "Model Environment";
 // Objects to render
 // Cube* Window::cube;
 Skeleton* Window::skeleton;
+Skin* Window::skin;
+AnimationClip* Window::animation;
 
 char* Window::filename;
+char* Window::skinFilename;
+char* Window::animFilename;
+
 
 // Camera Properties
 Camera* Cam;
@@ -40,8 +45,18 @@ bool Window::initializeObjects() {
     // cube = new Cube();
     // cube = new Cube(glm::vec3(-1, 0, -2), glm::vec3(1, 1, 1));
     skeleton = new Skeleton();
-    // filename = "wasp.skel";
+    skin = new Skin();
+    animation = new AnimationClip();
+
     skeleton->Load(filename);
+    skin->skeleton = skeleton;
+    animation->skeleton = skeleton;
+    skin->load(skinFilename);
+    
+    skeleton->populateDOFVector(skeleton->root);
+
+
+    animation->Load(animFilename);
 
     return true;
 }
@@ -50,6 +65,8 @@ void Window::cleanUp() {
     // Deallcoate the objects.
     // delete cube;
     delete skeleton;
+    delete skin;
+    delete animation;
 
     // Delete the shader program.
     glDeleteProgram(shaderProgram);
@@ -112,9 +129,13 @@ void Window::resizeCallback(GLFWwindow* window, int width, int height) {
 void Window::idleCallback() {
     // Perform any updates as necessary.
     Cam->Update();
+    float t = glfwGetTime();
 
     // cube->update();
-    skeleton->Update(glm::mat4(1.0f));
+    // std::cout << skeleton->allDOFs.size();
+    animation->Evaluate(t);
+    skeleton->Update();
+    skin->update();
 }
 
 void Window::displayCallback(GLFWwindow* window) {
@@ -123,7 +144,58 @@ void Window::displayCallback(GLFWwindow* window) {
 
     // Render the object.
     // cube->draw(Cam->GetViewProjectMtx(), Window::shaderProgram);
+    bool skinDrawn = true;
     skeleton->Draw(Cam->GetViewProjectMtx(), Window::shaderProgram);
+    skin->draw(Cam->GetViewProjectMtx(), Window::shaderProgram, skinDrawn);
+
+
+
+
+
+    // Tell OpenGL a new frame is about to begin
+    ImGui_ImplOpenGL3_NewFrame();
+    ImGui_ImplGlfw_NewFrame();
+    ImGui::NewFrame();
+
+    // ImGUI window creation
+    ImGui::Begin("Change values");
+
+    // buttons to go to next and previous joint
+    // if (ImGui::Button("Next Joint") && skeleton->currJoint < skeleton->allJoints.size() - 1) {
+    //     skeleton->currJoint++;
+    // }
+
+    // if (ImGui::Button("Previous Joint") && skeleton->currJoint > 0) {
+    //     skeleton->currJoint--;
+    // }
+
+    // Joint* currentJoint = skeleton->allJoints[skeleton->currJoint];
+    
+    // int n = 0;
+    // for (DOF* dof : currentJoint->dofs) {
+    //     ImGui::SliderFloat("DOF slider: " + *std::to_string(n).c_str(), &dof->value, dof->min, dof->max);
+    //     n++;
+    // }
+
+    // // Reset button to reset dof values
+    // if (ImGui::Button("Reset")) {
+    //     for (DOF* dof : currentJoint->dofs) {
+    //         dof->value = 0.0f;
+    //         // skeleton->Load(filename);
+    //     }
+    // }
+
+    // // Toggle button to show the skin
+    // if (ImGui::Button("Toggle Skin")) {
+    //     skinDrawn = !skinDrawn;
+    // }
+
+    // Ends the window
+    ImGui::End();
+
+    // Renders the ImGUI elements
+    ImGui::Render();
+    ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
     // Gets events, including input such as keyboard and mouse or window resizing.
     glfwPollEvents();
@@ -162,6 +234,9 @@ void Window::keyCallback(GLFWwindow* window, int key, int scancode, int action, 
 }
 
 void Window::mouse_callback(GLFWwindow* window, int button, int action, int mods) {
+    if (ImGui::GetIO().WantCaptureMouse) {
+        return;
+    }
     if (button == GLFW_MOUSE_BUTTON_LEFT) {
         LeftDown = (action == GLFW_PRESS);
     }

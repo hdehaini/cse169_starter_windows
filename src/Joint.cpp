@@ -15,21 +15,6 @@ Joint::~Joint() {
     }
 }
 
-void Joint::Update(glm::mat4 parentWorld) {
-    glm::mat4x4 translate = glm::translate(glm::mat4(1.0f), offset);
-    glm::mat4x4 rotateX = glm::rotate(glm::mat4(1.0f), dofs[0]->GetValue(), glm::vec3(1.0f, 0.0f, 0.0f));
-    glm::mat4x4 rotateY = glm::rotate(glm::mat4(1.0f), dofs[1]->GetValue(), glm::vec3(0.0f, 1.0f, 0.0f));
-    glm::mat4x4 rotateZ = glm::rotate(glm::mat4(1.0f), dofs[2]->GetValue(), glm::vec3(0.0f, 0.0f, 1.0f));
-
-    local = translate * rotateZ * rotateY * rotateX;
-
-    world = parentWorld * local;
-
-    for (int i = 0; i < children.size(); i++) {
-        children[i]->Update(world);
-    }
-}
-
 bool Joint::Load(Tokenizer &token) {
     token.FindToken("{");
     while(1) {
@@ -81,6 +66,21 @@ bool Joint::Load(Tokenizer &token) {
             token.SkipLine(); // Unrecognized token
             return false;
         }
+    }
+}
+
+void Joint::Update(glm::mat4 parentWorld) {
+    glm::mat4x4 translate = glm::translate(glm::mat4(1.0f), offset);
+    glm::mat4x4 rotateX = glm::rotate(glm::mat4(1.0f), dofs[0]->GetValue(), glm::vec3(1.0f, 0.0f, 0.0f));
+    glm::mat4x4 rotateY = glm::rotate(glm::mat4(1.0f), dofs[1]->GetValue(), glm::vec3(0.0f, 1.0f, 0.0f));
+    glm::mat4x4 rotateZ = glm::rotate(glm::mat4(1.0f), dofs[2]->GetValue(), glm::vec3(0.0f, 0.0f, 1.0f));
+
+    local = translate * rotateZ * rotateY * rotateX;
+
+    world = parentWorld * local;
+
+    for (int i = 0; i < children.size(); i++) {
+        children[i]->Update(world);
     }
 }
 

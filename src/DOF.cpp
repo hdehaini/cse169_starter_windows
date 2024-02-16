@@ -2,8 +2,8 @@
 
 DOF::DOF() {
     value = 0.0f;
-    min = -360.0f;
-    max = 360.0f;
+    min = -6.28318f;
+    max = 6.28318f;
 }
 
 DOF::~DOF() {
@@ -17,7 +17,6 @@ void DOF::SetValue(float v) {
     } else {
         value = v;
     }
-    // value = v;
 }
 
 float DOF::GetValue() {

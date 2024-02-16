@@ -17,6 +17,19 @@ set(
     src/DOF.cpp
     src/joint.cpp
     src/Skeleton.cpp
+    src/Vertex.cpp
+    src/Triangle.cpp
+    src/Skin.cpp
+    src/AnimationClip.cpp
+    src/Channel.cpp
+    src/Keyframe.cpp
+    src/imgui/imgui.cpp
+    src/imgui/imgui_draw.cpp
+    src/imgui/imgui_impl_glfw.cpp
+    src/imgui/imgui_impl_opengl3.cpp
+    src/imgui/imgui_widgets.cpp
+    src/imgui/imgui_demo.cpp
+    src/imgui/imgui_tables.cpp
 )
 
 # Add header files
@@ -30,6 +43,7 @@ find_package(OpenGL REQUIRED)
 # Add include directories
 include_directories(
     include
+    include/imgui
 )
 
 # Add library directories

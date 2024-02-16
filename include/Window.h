@@ -7,6 +7,11 @@
 #include "DOF.h"
 #include "Joint.h"
 #include "Skeleton.h"
+#include "Skin.h"
+#include "AnimationClip.h"
+#include "imgui/imgui.h"
+#include "imgui/imgui_impl_glfw.h"
+#include "imgui/imgui_impl_opengl3.h"
 
 class Window {
 public:
@@ -18,8 +23,15 @@ public:
     // Objects to render
     static Cube* cube;
     static Skeleton* skeleton;
+    static Skin* skin;
+    static AnimationClip* animation;
 
     static char* filename;
+    static char* skinFilename;
+    static char* animFilename;
+
+    // static bool drawSkeleton;
+    // static bool drawSkin;
 
     // Shader Program
     static GLuint shaderProgram;

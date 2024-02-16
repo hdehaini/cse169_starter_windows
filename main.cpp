@@ -1,3 +1,7 @@
+#include "include/imgui/imgui.h"
+#include "include/imgui/imgui_impl_glfw.h"
+#include "include/imgui/imgui_impl_opengl3.h"
+
 #include "Window.h"
 #include "core.h"
 
@@ -45,14 +49,33 @@ void print_versions() {
 
 int main(int argc, char *argv[]) {
     // Create the GLFW window.
-    GLFWwindow* window = Window::createWindow(800, 600);
+    GLFWwindow* window = Window::createWindow(800, 800);
     if (!window) exit(EXIT_FAILURE);
 
     if(argc == 1){
-        char* file = "test.skel";
+        char* file = "wasp.skel";
+        char* skinFile = "wasp.skin";
+        char* animFile = "wasp_walk.anim";
         Window::filename = file;
+        Window::skinFilename = skinFile;
+        Window::animFilename = animFile;
+
+    } else if (argc == 2){
+        Window::filename = argv[1];
+
+    } else if (argc == 3){
+        Window::filename = argv[1];
+        Window::skinFilename = argv[2];
+
+    } else if (argc == 4){
+        Window::filename = argv[1];
+        Window::skinFilename = argv[2];
+        Window::animFilename = argv[3];
+
     } else {
         Window::filename = argv[1];
+        Window::skinFilename = argv[2];
+        Window::animFilename = argv[3];
     }
 
     // filename = argv[1];
@@ -63,6 +86,14 @@ int main(int argc, char *argv[]) {
     setup_callbacks(window);
     // Setup OpenGL settings.
     setup_opengl_settings();
+
+    // imgui
+    IMGUI_CHECKVERSION();
+	ImGui::CreateContext();
+	ImGuiIO& io = ImGui::GetIO(); (void)io;
+	ImGui::StyleColorsDark();
+	ImGui_ImplGlfw_InitForOpenGL(window, true);
+	ImGui_ImplOpenGL3_Init("#version 330");
 
     // Initialize the shader program; exit if initialization fails.
     if (!Window::initializeProgram()) exit(EXIT_FAILURE);
