@@ -9,5 +9,8 @@ class Keyframe {
         float Value;
         float TangentIn,TangentOut;
         std::string RuleIn,RuleOut; // Tangent rules
-        float A,B,C,D; // Cubic coefficients
+        float A = 0.f;
+        float B = 0.f;
+        float C = 0.f;
+        float D = 0.f;
 };

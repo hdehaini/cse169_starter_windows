@@ -2,17 +2,13 @@
 
 #include "core.h"
 #include "Vertex.h"
+#include "Particle.h"
 
 class Triangle {
 public:
-    Triangle();
-    ~Triangle();
-
-    void setVerticies(Vertex v1, Vertex v2, Vertex v3);
-
-    Vertex v1;
-    Vertex v2;
-    Vertex v3;
+    
+    Particle* P1, P2, P3;
+    glm::vec3 Normal;
 
 private:
 };

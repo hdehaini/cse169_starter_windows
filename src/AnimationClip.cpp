@@ -24,9 +24,12 @@ bool AnimationClip::Load(const char *filename) {
     for (int i = 0; i < numChannels; i++) {
         Channel* newChannel = new Channel();
         newChannel->Load(token);
+        // newChannel->Print(i);
+        // float vv = newChannel->Evaluate(1.5, true);
+        // std::cout << "value: " << vv << "   " << std::ends;
+        newChannel->Print(i);
         channels.push_back(newChannel);
     }
-
     token.Close();
     return true;
 }
@@ -55,9 +58,12 @@ void AnimationClip::Evaluate(float time) {
     skeleton->World[3] = {x, y, z, 1.f};
 
     for (int i = 0; i < skeleton->allDOFs.size(); i++) {
-        float newValue = channels[i+3]->Evaluate(time);
-        
-        // float newValue = skeleton->allDOFs[i]->value + 0.001f;
-        skeleton->allDOFs[i]->value = newValue;
+        skeleton->allDOFs[i]->value = channels[i + 6]->Evaluate(time);
     }
+
+    // for (int i = 0; i < skeleton->allDOFs.size(); i++) {
+    //     float newValue = channels[i+3]->Evaluate(time);
+        
+    //     skeleton->allDOFs[i]->value = newValue;
+    // }
 }

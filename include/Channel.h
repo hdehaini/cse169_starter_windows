@@ -12,8 +12,9 @@ class Channel {
     public:
         void Load(Tokenizer& token);
         void Precompute();
-        float Evaluate(float time);
+        float Evaluate(float time, bool debug=false);
         float Extrapolate(std::string method, float time);
+        void Print(int i);
         
         std::vector<Keyframe*> keyframes;
         std::string extrapolate_in, extrapolate_out;

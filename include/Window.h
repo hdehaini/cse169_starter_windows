@@ -8,6 +8,7 @@
 #include "Joint.h"
 #include "Skeleton.h"
 #include "Skin.h"
+#include "Cloth.h"
 #include "AnimationClip.h"
 #include "imgui/imgui.h"
 #include "imgui/imgui_impl_glfw.h"
@@ -25,6 +26,7 @@ public:
     static Skeleton* skeleton;
     static Skin* skin;
     static AnimationClip* animation;
+    static Cloth* cloth;
 
     static char* filename;
     static char* skinFilename;

@@ -1,5 +1,6 @@
 #include "Skin.h"
 #include <iostream>
+#include "glm/gtx/string_cast.hpp"
 
 Skin::Skin() {
     color = glm::vec3(0.0f, 0.0f, 0.7f);

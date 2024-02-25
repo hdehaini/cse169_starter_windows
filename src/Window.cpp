@@ -10,6 +10,7 @@ const char* Window::windowTitle = "Model Environment";
 Skeleton* Window::skeleton;
 Skin* Window::skin;
 AnimationClip* Window::animation;
+Cloth* Window::cloth;
 
 char* Window::filename;
 char* Window::skinFilename;
@@ -47,6 +48,7 @@ bool Window::initializeObjects() {
     skeleton = new Skeleton();
     skin = new Skin();
     animation = new AnimationClip();
+    // cloth = new Cloth(10, 11);
 
     skeleton->Load(filename);
     skin->skeleton = skeleton;
@@ -67,6 +69,7 @@ void Window::cleanUp() {
     delete skeleton;
     delete skin;
     delete animation;
+    // delete cloth;
 
     // Delete the shader program.
     glDeleteProgram(shaderProgram);
@@ -136,6 +139,7 @@ void Window::idleCallback() {
     animation->Evaluate(t);
     skeleton->Update();
     skin->update();
+    // cloth->Update(0.01f);
 }
 
 void Window::displayCallback(GLFWwindow* window) {
@@ -147,6 +151,7 @@ void Window::displayCallback(GLFWwindow* window) {
     bool skinDrawn = true;
     skeleton->Draw(Cam->GetViewProjectMtx(), Window::shaderProgram);
     skin->draw(Cam->GetViewProjectMtx(), Window::shaderProgram, skinDrawn);
+    // cloth->Draw(Cam->GetViewProjectMtx(), Window::shaderProgram);
 
 
 

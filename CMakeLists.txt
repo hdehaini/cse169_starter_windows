@@ -23,6 +23,9 @@ set(
     src/AnimationClip.cpp
     src/Channel.cpp
     src/Keyframe.cpp
+    src/Particle.cpp
+    src/SpringDamper.cpp
+    src/Cloth.cpp
     src/imgui/imgui.cpp
     src/imgui/imgui_draw.cpp
     src/imgui/imgui_impl_glfw.cpp
