@@ -45,10 +45,10 @@ bool Window::initializeObjects() {
     // Create a cube
     // cube = new Cube();
     // cube = new Cube(glm::vec3(-1, 0, -2), glm::vec3(1, 1, 1));
-    skeleton = new Skeleton();
-    skin = new Skin();
-    animation = new AnimationClip();
-    // cloth = new Cloth(10, 11);
+    // skeleton = new Skeleton();
+    // skin = new Skin();
+    // animation = new AnimationClip();
+    cloth = new Cloth(10, 11);
 
     skeleton->Load(filename);
     skin->skeleton = skeleton;
@@ -66,10 +66,10 @@ bool Window::initializeObjects() {
 void Window::cleanUp() {
     // Deallcoate the objects.
     // delete cube;
-    delete skeleton;
-    delete skin;
-    delete animation;
-    // delete cloth;
+    // delete skeleton;
+    // delete skin;
+    // delete animation;
+    delete cloth;
 
     // Delete the shader program.
     glDeleteProgram(shaderProgram);
@@ -136,10 +136,10 @@ void Window::idleCallback() {
 
     // cube->update();
     // std::cout << skeleton->allDOFs.size();
-    animation->Evaluate(t);
-    skeleton->Update();
-    skin->update();
-    // cloth->Update(0.01f);
+    // animation->Evaluate(t);
+    // skeleton->Update();
+    // skin->update();
+    cloth->Update(0.01f);
 }
 
 void Window::displayCallback(GLFWwindow* window) {
@@ -149,9 +149,9 @@ void Window::displayCallback(GLFWwindow* window) {
     // Render the object.
     // cube->draw(Cam->GetViewProjectMtx(), Window::shaderProgram);
     bool skinDrawn = true;
-    skeleton->Draw(Cam->GetViewProjectMtx(), Window::shaderProgram);
-    skin->draw(Cam->GetViewProjectMtx(), Window::shaderProgram, skinDrawn);
-    // cloth->Draw(Cam->GetViewProjectMtx(), Window::shaderProgram);
+    // skeleton->Draw(Cam->GetViewProjectMtx(), Window::shaderProgram);
+    // skin->draw(Cam->GetViewProjectMtx(), Window::shaderProgram, skinDrawn);
+    cloth->Draw(Cam->GetViewProjectMtx(), Window::shaderProgram);
 
 
 

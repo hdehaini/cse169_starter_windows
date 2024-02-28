@@ -7,7 +7,9 @@
 class Triangle {
 public:
     
-    Particle* P1, P2, P3;
+    Particle* P1;
+    Particle* P2;
+    Particle* P3;
     glm::vec3 Normal;
 
 private:

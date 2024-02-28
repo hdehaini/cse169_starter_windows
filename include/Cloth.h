@@ -14,7 +14,7 @@ public:
     ~Cloth();
 
     void Update(float deltaTime);
-    void Draw();
+    void Draw(const glm::mat4& viewProjMtx, GLuint shader);
 
     std::vector<Particle*> Particles;
     std::vector<SpringDamper*> Springs;
