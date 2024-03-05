@@ -35,6 +35,11 @@ public:
     // static bool drawSkeleton;
     // static bool drawSkin;
 
+    static float newPosX;
+    static float newPosY;
+    static float newPosZ;
+    static float angle;
+
     // Shader Program
     static GLuint shaderProgram;
 

@@ -52,31 +52,31 @@ int main(int argc, char *argv[]) {
     GLFWwindow* window = Window::createWindow(800, 800);
     if (!window) exit(EXIT_FAILURE);
 
-    if(argc == 1){
-        char* file = "wasp.skel";
-        char* skinFile = "wasp.skin";
-        char* animFile = "wasp_walk.anim";
-        Window::filename = file;
-        Window::skinFilename = skinFile;
-        Window::animFilename = animFile;
+    // if(argc == 1){
+    //     char* file = "wasp.skel";
+    //     char* skinFile = "wasp.skin";
+    //     char* animFile = "wasp_walk.anim";
+    //     Window::filename = file;
+    //     Window::skinFilename = skinFile;
+    //     Window::animFilename = animFile;
 
-    } else if (argc == 2){
-        Window::filename = argv[1];
+    // } else if (argc == 2){
+    //     Window::filename = argv[1];
 
-    } else if (argc == 3){
-        Window::filename = argv[1];
-        Window::skinFilename = argv[2];
+    // } else if (argc == 3){
+    //     Window::filename = argv[1];
+    //     Window::skinFilename = argv[2];
 
-    } else if (argc == 4){
-        Window::filename = argv[1];
-        Window::skinFilename = argv[2];
-        Window::animFilename = argv[3];
+    // } else if (argc == 4){
+    //     Window::filename = argv[1];
+    //     Window::skinFilename = argv[2];
+    //     Window::animFilename = argv[3];
 
-    } else {
-        Window::filename = argv[1];
-        Window::skinFilename = argv[2];
-        Window::animFilename = argv[3];
-    }
+    // } else {
+    //     Window::filename = argv[1];
+    //     Window::skinFilename = argv[2];
+    //     Window::animFilename = argv[3];
+    // }
 
     // filename = argv[1];
 

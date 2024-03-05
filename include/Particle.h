@@ -10,6 +10,8 @@ public:
     }
 
     void Integrate(float deltaTime) {
+        if (isFixed) return; // Do not integrate if the particle is fixed (pinned to the world
+
         glm::vec3 accel=(1/Mass) * Force; // Apply Newton’s Second Law (f=ma)
         Velocity += accel*deltaTime; // Forward Euler integration to get new velocity
         Position += Velocity*deltaTime; // Backward Euler integration to get new position

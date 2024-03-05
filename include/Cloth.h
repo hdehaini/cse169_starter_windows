@@ -23,6 +23,11 @@ public:
     int Width, Height;
     float ParticleMass;
     float TotalMass; // n*ParticleMass
+    float forwardSpeed = 0.1f;
+
+    std::vector<glm::vec3> positions;
+    std::vector<glm::vec3> normals;
+    std::vector<unsigned int> indices;
 
     // OpenGL stuff from Skin
     GLuint meshVAO;
