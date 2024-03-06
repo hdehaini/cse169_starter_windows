@@ -145,51 +145,51 @@ void Cloth::Update(float deltaTime) {
 
 // Draw using OpenGL
 void Cloth::Draw(const glm::mat4& viewProjMtx, GLuint shader) {
-    // Bind the VAO
-    glBindVertexArray(meshVAO);
-    // Bind the position VBO
-    glBindBuffer(GL_ARRAY_BUFFER, positionVBO);
-    // Upload the data
-    glBufferData(GL_ARRAY_BUFFER, Particles.size()*sizeof(glm::vec3), &Particles[0]->Position, GL_DYNAMIC_DRAW);
-    // Set the vertex attribute pointers
-    glEnableVertexAttribArray(0);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
-    // Bind the normal VBO
-    glBindBuffer(GL_ARRAY_BUFFER, normalVBO);
-    // Upload the data
-    glBufferData(GL_ARRAY_BUFFER, Particles.size()*sizeof(glm::vec3), &Particles[0]->Normal, GL_DYNAMIC_DRAW);
-    // Set the vertex attribute pointers
-    glEnableVertexAttribArray(1);
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
-    // Bind the EBO
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
-    // Upload the data
-    std::vector<unsigned int> indices;
-    for (int i=0; i<Width-1; i++) {
-        for (int j=0; j<Height-1; j++) {
-            indices.push_back(i*Height+j);
-            indices.push_back((i+1)*Height+j);
-            indices.push_back(i*Height+j+1);
-            indices.push_back((i+1)*Height+j);
-            indices.push_back((i+1)*Height+j+1);
-            indices.push_back(i*Height+j+1);
-        }
-    }
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size()*sizeof(unsigned int), &indices[0], GL_DYNAMIC_DRAW);
+    // // Bind the VAO
+    // glBindVertexArray(meshVAO);
+    // // Bind the position VBO
+    // glBindBuffer(GL_ARRAY_BUFFER, positionVBO);
+    // // Upload the data
+    // glBufferData(GL_ARRAY_BUFFER, Particles.size()*sizeof(glm::vec3), &Particles[0]->Position, GL_DYNAMIC_DRAW);
+    // // Set the vertex attribute pointers
+    // glEnableVertexAttribArray(0);
+    // glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
+    // // Bind the normal VBO
+    // glBindBuffer(GL_ARRAY_BUFFER, normalVBO);
+    // // Upload the data
+    // glBufferData(GL_ARRAY_BUFFER, Particles.size()*sizeof(glm::vec3), &Particles[0]->Normal, GL_DYNAMIC_DRAW);
+    // // Set the vertex attribute pointers
+    // glEnableVertexAttribArray(1);
+    // glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
+    // // Bind the EBO
+    // glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
+    // // Upload the data
+    // std::vector<unsigned int> indices;
+    // for (int i=0; i<Width-1; i++) {
+    //     for (int j=0; j<Height-1; j++) {
+    //         indices.push_back(i*Height+j);
+    //         indices.push_back((i+1)*Height+j);
+    //         indices.push_back(i*Height+j+1);
+    //         indices.push_back((i+1)*Height+j);
+    //         indices.push_back((i+1)*Height+j+1);
+    //         indices.push_back(i*Height+j+1);
+    //     }
+    // }
+    // glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size()*sizeof(unsigned int), &indices[0], GL_DYNAMIC_DRAW);
 
-    // actiavte the shader program
-    glUseProgram(shader);
+    // // actiavte the shader program
+    // glUseProgram(shader);
 
-    // get the locations and send the uniforms to the shader
-    glUniformMatrix4fv(glGetUniformLocation(shader, "viewProj"), 1, false, (float*)&viewProjMtx);
-    glUniformMatrix4fv(glGetUniformLocation(shader, "model"), 1, GL_FALSE, (float*)&model);
-    glUniform3fv(glGetUniformLocation(shader, "DiffuseColor"), 1, &color[0]);
+    // // get the locations and send the uniforms to the shader
+    // glUniformMatrix4fv(glGetUniformLocation(shader, "viewProj"), 1, false, (float*)&viewProjMtx);
+    // glUniformMatrix4fv(glGetUniformLocation(shader, "model"), 1, GL_FALSE, (float*)&model);
+    // glUniform3fv(glGetUniformLocation(shader, "DiffuseColor"), 1, &color[0]);
 
-    // Bind the VAO
-    glBindVertexArray(meshVAO);
+    // // Bind the VAO
+    // glBindVertexArray(meshVAO);
 
-    // Draw the triangles
-    glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
-    // Unbind the VAO
-    glBindVertexArray(0);
+    // // Draw the triangles
+    // glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
+    // // Unbind the VAO
+    // glBindVertexArray(0);
 }

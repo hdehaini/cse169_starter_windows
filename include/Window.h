@@ -9,6 +9,7 @@
 #include "Skeleton.h"
 #include "Skin.h"
 #include "Cloth.h"
+#include "Fluid.h"
 #include "AnimationClip.h"
 #include "imgui/imgui.h"
 #include "imgui/imgui_impl_glfw.h"
@@ -27,6 +28,7 @@ public:
     static Skin* skin;
     static AnimationClip* animation;
     static Cloth* cloth;
+    static Fluid* fluid;
 
     static char* filename;
     static char* skinFilename;

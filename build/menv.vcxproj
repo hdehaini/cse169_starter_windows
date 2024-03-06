@@ -331,6 +331,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClCompile Include="C:\Users\hsdeh\OneDrive\Documents\coding_projects_laptop\CSE-169\cse169_starter_windows\src\Particle.cpp" />
     <ClCompile Include="C:\Users\hsdeh\OneDrive\Documents\coding_projects_laptop\CSE-169\cse169_starter_windows\src\SpringDamper.cpp" />
     <ClCompile Include="C:\Users\hsdeh\OneDrive\Documents\coding_projects_laptop\CSE-169\cse169_starter_windows\src\Cloth.cpp" />
+    <ClCompile Include="C:\Users\hsdeh\OneDrive\Documents\coding_projects_laptop\CSE-169\cse169_starter_windows\src\Fluid.cpp" />
     <ClCompile Include="C:\Users\hsdeh\OneDrive\Documents\coding_projects_laptop\CSE-169\cse169_starter_windows\src\imgui\imgui.cpp" />
     <ClCompile Include="C:\Users\hsdeh\OneDrive\Documents\coding_projects_laptop\CSE-169\cse169_starter_windows\src\imgui\imgui_draw.cpp" />
     <ClCompile Include="C:\Users\hsdeh\OneDrive\Documents\coding_projects_laptop\CSE-169\cse169_starter_windows\src\imgui\imgui_impl_glfw.cpp" />

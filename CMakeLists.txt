@@ -26,6 +26,7 @@ set(
     src/Particle.cpp
     src/SpringDamper.cpp
     src/Cloth.cpp
+    src/Fluid.cpp
     src/imgui/imgui.cpp
     src/imgui/imgui_draw.cpp
     src/imgui/imgui_impl_glfw.cpp

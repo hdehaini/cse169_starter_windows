@@ -55,6 +55,9 @@
     <ClCompile Include="C:\Users\hsdeh\OneDrive\Documents\coding_projects_laptop\CSE-169\cse169_starter_windows\src\Cloth.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="C:\Users\hsdeh\OneDrive\Documents\coding_projects_laptop\CSE-169\cse169_starter_windows\src\Fluid.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="C:\Users\hsdeh\OneDrive\Documents\coding_projects_laptop\CSE-169\cse169_starter_windows\src\imgui\imgui.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

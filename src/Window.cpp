@@ -7,10 +7,11 @@ const char* Window::windowTitle = "Model Environment";
 
 // Objects to render
 // Cube* Window::cube;
-Skeleton* Window::skeleton;
-Skin* Window::skin;
-AnimationClip* Window::animation;
-Cloth* Window::cloth;
+// Skeleton* Window::skeleton;
+// Skin* Window::skin;
+// AnimationClip* Window::animation;
+// Cloth* Window::cloth;
+Fluid* Window::fluid;
 
 char* Window::filename;
 char* Window::skinFilename;
@@ -48,17 +49,18 @@ bool Window::initializeObjects() {
     // skeleton = new Skeleton();
     // skin = new Skin();
     // animation = new AnimationClip();
-    cloth = new Cloth(10, 11);
+    // cloth = new Cloth(10, 11);
+    fluid = new Fluid(10);
 
-    skeleton->Load(filename);
-    skin->skeleton = skeleton;
-    animation->skeleton = skeleton;
-    skin->load(skinFilename);
+    // skeleton->Load(filename);
+    // skin->skeleton = skeleton;
+    // animation->skeleton = skeleton;
+    // skin->load(skinFilename);
     
-    skeleton->populateDOFVector(skeleton->root);
+    // skeleton->populateDOFVector(skeleton->root);
 
 
-    animation->Load(animFilename);
+    // animation->Load(animFilename);
 
     return true;
 }
@@ -69,7 +71,8 @@ void Window::cleanUp() {
     // delete skeleton;
     // delete skin;
     // delete animation;
-    delete cloth;
+    // delete cloth;
+    delete fluid;
 
     // Delete the shader program.
     glDeleteProgram(shaderProgram);
@@ -139,7 +142,8 @@ void Window::idleCallback() {
     // animation->Evaluate(t);
     // skeleton->Update();
     // skin->update();
-    cloth->Update(0.01f);
+    // cloth->Update(0.01f);
+    fluid->Update(0.01f);
 }
 
 void Window::displayCallback(GLFWwindow* window) {
@@ -151,7 +155,8 @@ void Window::displayCallback(GLFWwindow* window) {
     bool skinDrawn = true;
     // skeleton->Draw(Cam->GetViewProjectMtx(), Window::shaderProgram);
     // skin->draw(Cam->GetViewProjectMtx(), Window::shaderProgram, skinDrawn);
-    cloth->Draw(Cam->GetViewProjectMtx(), Window::shaderProgram);
+    // cloth->Draw(Cam->GetViewProjectMtx(), Window::shaderProgram);
+    fluid->Draw(Cam->GetViewProjectMtx(), Window::shaderProgram);
 
 
 
