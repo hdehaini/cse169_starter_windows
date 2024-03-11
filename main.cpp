@@ -1,119 +1,166 @@
-#include "include/imgui/imgui.h"
-#include "include/imgui/imgui_impl_glfw.h"
-#include "include/imgui/imgui_impl_opengl3.h"
+// http://glew.sourceforge.net/
+#include <GL/glew.h>
 
-#include "Window.h"
+// http://freeglfw.sourceforge.net/
 #include "core.h"
 
-void error_callback(int error, const char* description) {
-    // Print error.
-    std::cerr << description << std::endl;
-}
+// http://glm.g-truc.net/
+#include <glm/glm.hpp>
+#include <glm/gtc/random.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
-void setup_callbacks(GLFWwindow* window) {
-    // Set the error callback.
-    glfwSetErrorCallback(error_callback);
-    // Set the window resize callback.
-    glfwSetWindowSizeCallback(window, Window::resizeCallback);
+#include <vector>
+#include <sstream>
+#include <chrono>
+#include <cstddef>
 
-    // Set the key callback.
-    glfwSetKeyCallback(window, Window::keyCallback);
+struct Vertex
+{
+    glm::vec4 pos;
+    glm::vec4 color;
+};
+std::vector< Vertex > verts;
+GLuint vbo = 0;
+GLuint dlist = 0;
 
-    // Set the mouse and cursor callbacks
-    glfwSetMouseButtonCallback(window, Window::mouse_callback);
-    glfwSetCursorPosCallback(window, Window::cursor_callback);
-}
-
-void setup_opengl_settings() {
-    // Enable depth buffering.
-    glEnable(GL_DEPTH_TEST);
-    // Related to shaders and z value comparisons for the depth buffer.
-    glDepthFunc(GL_LEQUAL);
-    // Set polygon drawing mode to fill front and back of each polygon.
-    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-    // Set clear color to black.
-    glClearColor(0.0, 0.0, 0.0, 0.0);
-}
-
-void print_versions() {
-    // Get info of GPU and supported OpenGL version.
-    std::cout << "Renderer: " << glGetString(GL_RENDERER) << std::endl;
-    std::cout << "OpenGL version supported: " << glGetString(GL_VERSION)
-              << std::endl;
-
-    // If the shading language symbol is defined.
-#ifdef GL_SHADING_LANGUAGE_VERSION
-    std::cout << "Supported GLSL version is: " << glGetString(GL_SHADING_LANGUAGE_VERSION) << std::endl;
-#endif
-}
-
-int main(int argc, char *argv[]) {
-    // Create the GLFW window.
-    GLFWwindow* window = Window::createWindow(800, 800);
-    if (!window) exit(EXIT_FAILURE);
-
-    if(argc == 1){
-        char* file = "wasp.skel";
-        char* skinFile = "wasp.skin";
-        char* animFile = "wasp_walk.anim";
-        Window::filename = file;
-        Window::skinFilename = skinFile;
-        Window::animFilename = animFile;
-
-    } else if (argc == 2){
-        Window::filename = argv[1];
-
-    } else if (argc == 3){
-        Window::filename = argv[1];
-        Window::skinFilename = argv[2];
-
-    } else if (argc == 4){
-        Window::filename = argv[1];
-        Window::skinFilename = argv[2];
-        Window::animFilename = argv[3];
-
-    } else {
-        Window::filename = argv[1];
-        Window::skinFilename = argv[2];
-        Window::animFilename = argv[3];
+void init()
+{
+    // init geometry
+    for( size_t i = 0; i < 10000000; i++ )
+    {
+        Vertex vert;
+        vert.pos = glm::vec4( glm::linearRand( glm::vec3( -1.0f, -1.0f, -1.0f ), glm::vec3( 1.0f, 1.0f, 1.0f ) ), 1.0f );
+        vert.color = glm::vec4( glm::linearRand( glm::vec3( 0.00f, 0.0f, 0.0f ), glm::vec3( 1.0f, 1.0f, 1.0f ) ), 1.0f );
+        verts.push_back( vert );
     }
 
-    // filename = argv[1];
+    // create display list
+    dlist = glGenLists( 1 );
+    glNewList( dlist, GL_COMPILE );
+    glBegin( GL_POINTS );
+    for( size_t i = 0; i < verts.size(); ++i )
+    {
+        glColor4fv( glm::value_ptr( verts[i].color) );
+        glVertex4fv( glm::value_ptr( verts[i].pos) );
+    }
+    glEnd();
+    glEndList();
 
-    // Print OpenGL and GLSL versions.
-    print_versions();
-    // Setup callbacks.
-    setup_callbacks(window);
-    // Setup OpenGL settings.
-    setup_opengl_settings();
+    // create VBO
+    glGenBuffers( 1, &vbo );
+    glBindBuffer( GL_ARRAY_BUFFER, vbo );
+    glBufferData( GL_ARRAY_BUFFER, sizeof( Vertex ) * verts.size(), verts.data(), GL_STATIC_DRAW );
+}
 
-    // imgui
-    IMGUI_CHECKVERSION();
-	ImGui::CreateContext();
-	ImGuiIO& io = ImGui::GetIO(); (void)io;
-	ImGui::StyleColorsDark();
-	ImGui_ImplGlfw_InitForOpenGL(window, true);
-	ImGui_ImplOpenGL3_Init("#version 330");
+unsigned int method = 0;
+void keyboard( unsigned char key, int x, int y )
+{
+    if( 'n' == key )
+    {
+        method++;
+        if( method > 3 ) method = 0;
+    }
+}
 
-    // Initialize the shader program; exit if initialization fails.
-    if (!Window::initializeProgram()) exit(EXIT_FAILURE);
-    // Initialize objects/pointers for rendering; exit if initialization fails.
-    if (!Window::initializeObjects()) exit(EXIT_FAILURE);
+void display()
+{
+    // timekeeping
+    static std::chrono::steady_clock::time_point prv = std::chrono::steady_clock::now();
+    std::chrono::steady_clock::time_point cur = std::chrono::steady_clock::now();
+    const float dt = std::chrono::duration< float >( cur - prv ).count();
+    prv = cur;
 
-    // Loop while GLFW window should stay open.
-    while (!glfwWindowShouldClose(window)) {
-        // Main render display callback. Rendering of objects is done here.
-        Window::displayCallback(window);
+    glClearColor( 0, 0, 0, 1 );
+    glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
 
-        // Idle callback. Updating objects, etc. can be done here.
-        Window::idleCallback();
+    glMatrixMode( GL_PROJECTION );
+    glLoadIdentity();
+    double w = 800;
+    double h = 800;
+    gluPerspective( 60.0, w / h, 0.1, 10.0 );
+
+    glMatrixMode( GL_MODELVIEW );
+    glLoadIdentity();
+    gluLookAt( 2, 2, 2, 0, 0, 0, 0, 0, 1 );
+
+    static float angle = 0.0f;
+    angle += dt * 6.0f;
+    glRotatef( angle, 0, 0, 1 );
+
+    // render
+    switch( method )
+    {
+    case 0:
+        // VBO
+        glBindBuffer( GL_ARRAY_BUFFER, vbo );
+        glEnableClientState( GL_VERTEX_ARRAY );
+        glEnableClientState( GL_COLOR_ARRAY );
+        glVertexPointer( 4, GL_FLOAT, sizeof( Vertex ), (void*)offsetof( Vertex, pos ) );
+        glColorPointer( 4, GL_FLOAT, sizeof( Vertex ), (void*)offsetof( Vertex, color ) );
+        glDrawArrays( GL_POINTS, 0, verts.size() );
+        glDisableClientState( GL_VERTEX_ARRAY );
+        glDisableClientState( GL_COLOR_ARRAY );
+        glBindBuffer( GL_ARRAY_BUFFER, 0 );
+        break;
+
+    case 1:
+        // vertex array
+        glEnableClientState( GL_VERTEX_ARRAY );
+        glEnableClientState( GL_COLOR_ARRAY );
+        glVertexPointer( 4, GL_FLOAT, sizeof( Vertex ), &verts[0].pos );
+        glColorPointer( 4, GL_FLOAT, sizeof( Vertex ), &verts[0].color );
+        glDrawArrays( GL_POINTS, 0, verts.size() );
+        glDisableClientState( GL_VERTEX_ARRAY );
+        glDisableClientState( GL_COLOR_ARRAY );
+        break;
+
+    case 2:
+        // display list
+        glCallList( dlist );
+        break;
+
+    case 3:
+        // immediate mode
+        glBegin( GL_POINTS );
+        for( size_t i = 0; i < verts.size(); ++i )
+        {
+            glColor4fv( glm::value_ptr( verts[i].color) );
+            glVertex4fv( glm::value_ptr( verts[i].pos) );
+        }
+        glEnd();
+        break;
     }
 
-    Window::cleanUp();
-    // Destroy the window.
-    glfwDestroyWindow(window);
-    // Terminate GLFW.
-    glfwTerminate();
+    // info/frame time output
+    std::stringstream msg;
+    msg << "Using ";
+    switch( method )
+    {
+    case 0: msg << "vertex buffer object"; break;
+    case 1: msg << "vertex array"; break;
+    case 2: msg << "display list"; break;
+    case 3: msg << "immediate mode"; break;
+    }
+    msg << std::endl;
+    msg << "Frame time: " << (dt * 1000.0f) << " ms";
+    glColor3ub( 255, 255, 0 );
+    glWindowPos2i( 10, 25 );
+    glfwBitmapString( glfw_BITMAP_9_BY_15, (unsigned const char*)( msg.str().c_str() ) );
 
-    exit(EXIT_SUCCESS);
+    glfwSwapBuffers();
+}
+
+int main(int argc, char **argv)
+{
+    glfwInit( &argc, argv );
+    glfwInitDisplayMode( glfw_RGBA | glfw_DOUBLE );
+    glfwInitWindowSize( 600, 600 );
+    glfwCreateWindow( "glfw" );
+    glewInit();
+    init();
+    glfwDisplayFunc( display );
+    glfwKeyboardFunc( keyboard );
+    glfwIdleFunc( display );
+    glfwMainLoop();
+    return 0;
 }
