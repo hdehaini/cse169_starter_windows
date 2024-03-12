@@ -36,7 +36,6 @@ public:
     // OpenGL stuff from Skin
     GLuint meshVAO;
     GLuint positionVBO;
-    GLuint normalVBO;
     GLuint ebo;
     glm::vec3 color;
     glm::mat4 model;

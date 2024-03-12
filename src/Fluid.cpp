@@ -141,7 +141,10 @@ void Fluid::Update(float deltaTime) {
     for (int i = 0; i < Particles.size(); i++) {
         positions[i] = Particles[i]->Position;
     }
+
+    std::cout << "Number of Particles: " << Particles.size() << std::endl;
 }
+
 
 void Fluid::Draw(const glm::mat4& viewProjMtx, GLuint shader) {
     // Use the shader of programID
@@ -167,7 +170,7 @@ void Fluid::Draw(const glm::mat4& viewProjMtx, GLuint shader) {
     glVertexAttribPointer(positionInput, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
 
     // Draw the points
-    glDrawElements(GL_POINTS, positions.size(), GL_UNSIGNED_INT, 0);
+    glDrawArrays(GL_POINTS, 0, positions.size());
 
     // Unbind the VAO
     glBindVertexArray(0);
