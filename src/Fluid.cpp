@@ -7,14 +7,27 @@ Fluid::Fluid(int numParticles) {
     glGenVertexArrays(1, &meshVAO);
     glGenBuffers(1, &positionVBO);
 
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::normal_distribution<float> distX(velX, 0.5);
+    std::normal_distribution<float> distY(velY, 0.25);
+    std::normal_distribution<float> distZ(velZ, 0.25);
+
     // Create the particles
     for (int i = 0; i < numParticles; i++) {
         Particle* p = new Particle();
-        p->Position = glm::vec3(i, i, -i) * 0.1f;
-        p->Velocity = glm::vec3(rand() % 10 - 5, rand() % 10 - 5, rand() % 10 - 5);
-        p->Mass = 0.1f;
-        p->Radius = 0.1f;
+        p->Position = glm::vec3(positionX, positionY, positionZ);
+        float velocityX = distX(gen);
+        float velocityY = distY(gen);
+        float velocityZ = distZ(gen);
+        velocityX = std::max(velX - 1, std::min(velocityX, velX + 1));
+        velocityY = std::max(velY - 0.5f, std::min(velocityY, velY + 0.5f));
+        velocityZ = std::max(velZ - 0.5f, std::min(velocityZ, velZ + 0.5f));
+        p->Velocity = glm::vec3(velocityX, velocityY, velocityZ);
+        p->Mass = ParticleMass;
+        p->Radius = ParticleRadius;
         p->startLife = 0.0f;
+        p->Life = LifeSpan;
         Particles.push_back(p);
     }
 
@@ -33,27 +46,43 @@ Fluid::~Fluid() {
     for (int i = 0; i < Particles.size(); i++) {
         delete Particles[i];
     }
+
+    Particles.clear();
+    positions.clear();
 }
 
 void Fluid::Update(float deltaTime) {
-    // Add particles over time
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::normal_distribution<float> distX(velX, 0.5);
+    std::normal_distribution<float> distY(velY, 0.25);
+    std::normal_distribution<float> distZ(velZ, 0.25);
+    // Add particles over time using particle rate
     static float time = 0;
+    deltaTime /= 20.0f;
     time += deltaTime;
     if (time > 1.0f / ParticleRate) {
         Particle* p = new Particle();
-        p->Position = glm::vec3(0, 10, 0);
-        p->Velocity = glm::vec3(0, 0, 0);
-        p->Mass = 0.1f;
-        p->Radius = 0.1f;
+        p->Position = glm::vec3(positionX, positionY, positionZ);
+        float velocityX = distX(gen);
+        float velocityY = distY(gen);
+        float velocityZ = distZ(gen);
+        velocityX = std::max(velX - 1, std::min(velocityX, velX + 1));
+        velocityY = std::max(velY - 0.5f, std::min(velocityY, velY + 0.5f));
+        velocityZ = std::max(velZ - 0.5f, std::min(velocityZ, velZ + 0.5f));
+        p->Velocity = glm::vec3(velocityX, velocityY, velocityZ);
+        p->Mass = ParticleMass;
+        p->Radius = ParticleRadius;
         p->startLife = time;
+        p->Life = LifeSpan;
         Particles.push_back(p);
         positions.push_back(p->Position);
-        time = 0;
+        time -= 1.0f / ParticleRate;
     }
 
     // If Life is less than 0, remove the particle
     for (int i = 0; i < Particles.size(); i++) {
-        Particles[i]->Life = Particles[i]->startLife - time;
+        Particles[i]->Life -= deltaTime;
         if (Particles[i]->Life < 0) {
             delete Particles[i];
             Particles.erase(Particles.begin() + i);
@@ -63,18 +92,10 @@ void Fluid::Update(float deltaTime) {
     
     // Apply Gravity
     for (int i = 0; i < Particles.size(); i++) {
-        Particles[i]->Force += glm::vec3(0, -9.8f, 0) * Particles[i]->Mass;
+        Particles[i]->Force += glm::vec3(0, Gravity, 0) * Particles[i]->Mass;
     }
 
     // Aerodynamics
-    for (int i = 0; i < Particles.size(); i++) {
-        glm::vec3 v = Particles[i]->Velocity;
-        float speed = glm::length(v);
-        glm::vec3 drag = -0.5f * 1.225f * speed * speed * 0.47f * 0.1f * v;
-        Particles[i]->Force += drag;
-    }
-
-    // Aerodynamics using Fluid variables
     for(int i = 0; i < Particles.size(); i++) {
         glm::vec3 v = Particles[i]->Velocity;
         float speed = glm::length(v);
@@ -94,42 +115,61 @@ void Fluid::Update(float deltaTime) {
         // Ground
         if (Particles[i]->Position.y < 0) {
             Particles[i]->Position.y = 0;
-            Particles[i]->Velocity.y *= -0.5f;
+            Particles[i]->Velocity *= CollisionElasticity;
+            Particles[i]->Velocity.y *= -1.f;
+        }
+
+        // Ceiling
+        if (Particles[i]->Position.y > 5) {
+            Particles[i]->Position.y = 5;
+            Particles[i]->Velocity *= CollisionElasticity;
+            Particles[i]->Velocity.y *= -1.f;
         }
 
         // Walls
-        if (Particles[i]->Position.x < -25) {
-            Particles[i]->Position.x = -25;
-            Particles[i]->Velocity.x *= -0.5f;
+        if (Particles[i]->Position.x < -5) {
+            Particles[i]->Position.x = -5;
+            Particles[i]->Velocity *= CollisionElasticity;
+            Particles[i]->Velocity.x *= -1.f;
         }
-        if (Particles[i]->Position.x > 25) {
-            Particles[i]->Position.x = 25;
-            Particles[i]->Velocity.x *= -0.5f;
+        if (Particles[i]->Position.x > 5) {
+            Particles[i]->Position.x = 5;
+            Particles[i]->Velocity *= CollisionElasticity;
+            Particles[i]->Velocity.x *= -1.f;
         }
-        if (Particles[i]->Position.z < -25) {
-            Particles[i]->Position.z = -25;
-            Particles[i]->Velocity.z *= -0.5f;
+        if (Particles[i]->Position.z < -5) {
+            Particles[i]->Position.z = -5;
+            Particles[i]->Velocity *= CollisionElasticity;
+            Particles[i]->Velocity.z *= -1.f;
         }
-        if (Particles[i]->Position.z > 25) {
-            Particles[i]->Position.z = 25;
-            Particles[i]->Velocity.z *= -0.5f;
+        if (Particles[i]->Position.z > 5) {
+            Particles[i]->Position.z = 5;
+            Particles[i]->Velocity *= CollisionElasticity;
+            Particles[i]->Velocity.z *= -1.f;
         }
 
-        // Other particles
-        for (int j = 0; j < Particles.size(); j++) {
-            if (i != j) {
-                glm::vec3 dist = Particles[i]->Position - Particles[j]->Position;
-                float len = glm::length(dist);
-                if (len < Particles[i]->Radius + Particles[j]->Radius) {
-                    glm::vec3 n = glm::normalize(dist);
-                    glm::vec3 v = Particles[i]->Velocity - Particles[j]->Velocity;
-                    float vn = glm::dot(v, n);
-                    if (vn > 0) {
-                        float e = CollisionElasticity;
-                        float f = -(1 + e) * vn / (1 / Particles[i]->Mass + 1 / Particles[j]->Mass);
-                        glm::vec3 impulse = f * n;
-                        Particles[i]->Velocity += 1 / Particles[i]->Mass * impulse;
-                        Particles[j]->Velocity -= 1 / Particles[j]->Mass * impulse;
+        // Collision with other particles with collision elasticity and friction
+        for (int j = i + 1; j < Particles.size(); j++) {
+            glm::vec3 dist = Particles[i]->Position - Particles[j]->Position;
+            float d = glm::length(dist);
+            // std::cout << "Distance: " << d << std::endl;
+            if (d < 0.1f) {
+                glm::vec3 normal = glm::normalize(dist);
+                glm::vec3 relativeVelocity = Particles[i]->Velocity - Particles[j]->Velocity;
+                float relativeSpeed = glm::dot(relativeVelocity, normal);
+                if (relativeSpeed < 0) {
+                    // std::cout << "Collision" << std::endl;
+                    float impulse = -(1 + CollisionElasticity) * relativeSpeed / (1 / Particles[i]->Mass + 1 / Particles[j]->Mass);
+                    // Use particle impulse function to apply the impulse
+                    Particles[i]->ApplyImpulse(impulse * normal);
+                    Particles[j]->ApplyImpulse(-impulse * normal);
+                    // // Apply friction
+                    glm::vec3 tangent = relativeVelocity - relativeSpeed * normal;
+                    tangent = glm::normalize(tangent);
+                    float frictionImpulse = -glm::dot(relativeVelocity, tangent) / (1 / Particles[i]->Mass + 1 / Particles[j]->Mass);
+                    if (glm::length(frictionImpulse * tangent) < impulse * CollisionFriction) {
+                        Particles[i]->ApplyImpulse(-frictionImpulse * tangent);
+                        Particles[j]->ApplyImpulse(frictionImpulse * tangent);
                     }
                 }
             }
@@ -141,11 +181,9 @@ void Fluid::Update(float deltaTime) {
     for (int i = 0; i < Particles.size(); i++) {
         positions[i] = Particles[i]->Position;
     }
-
-    std::cout << "Number of Particles: " << Particles.size() << std::endl;
 }
 
-
+// Draw using particle.vert and particle.frag
 void Fluid::Draw(const glm::mat4& viewProjMtx, GLuint shader) {
     // Use the shader of programID
     glUseProgram(shader);
@@ -153,25 +191,27 @@ void Fluid::Draw(const glm::mat4& viewProjMtx, GLuint shader) {
     // Bind the VAO
     glBindVertexArray(meshVAO);
 
-    // Set up the model, view, projection matrices
-    glm::mat4 modelViewProjMtx = viewProjMtx * model;
-    glUniformMatrix4fv(glGetUniformLocation(shader, "modelViewProjMtx"), 1, false, &modelViewProjMtx[0][0]);    
-
-    // Set up the color
-    glUniform3fv(glGetUniformLocation(shader, "color"), 1, &color[0]);
-
-    // Set up the position VBO
+    // Bind the VBO
     glBindBuffer(GL_ARRAY_BUFFER, positionVBO);
     glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3) * positions.size(), positions.data(), GL_DYNAMIC_DRAW);
+    glEnableVertexAttribArray(0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), 0);
 
-    // Set up the position input
-    GLuint positionInput = glGetAttribLocation(shader, "position");
-    glEnableVertexAttribArray(positionInput);
-    glVertexAttribPointer(positionInput, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
+    // Set the shader uniforms
+    glUniformMatrix4fv(glGetUniformLocation(shader, "model"), 1, GL_FALSE, (float*)&viewProjMtx);
+    glUniformMatrix4fv(glGetUniformLocation(shader, "viewProj"), 1, GL_FALSE, (float*)&model);
+    // glUniform3fv(glGetUniformLocation(shader, "color"), 1, &color[0]);
 
     // Draw the points
+    glPointSize(ParticleRadius);
     glDrawArrays(GL_POINTS, 0, positions.size());
 
     // Unbind the VAO
     glBindVertexArray(0);
+
+    // Unbind the shader
+    glUseProgram(0);
+
+    // Unbind the VBO
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
 }

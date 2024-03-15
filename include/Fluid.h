@@ -7,6 +7,8 @@
 #include <stdlib.h>
 #include <iostream>
 #include <vector>
+#include <string>
+#include <random>
 
 class Fluid {
 public:
@@ -19,16 +21,23 @@ public:
 
     std::vector<Particle*> Particles;
 
-    int ParticleRate = 10;
-    float ParticleMass = 0.1f;
+    float positionX = 0.0f;
+    float positionY = 2.0f;
+    float positionZ = 0.0f;
+    float velX = 4.0f;
+    float velY = 0.5f;
+    float velZ = 0.5f;
+    int ParticleRate = 0;
+    float ParticleMass = 0.5f;
     float TotalMass; // n*ParticleMass
-    float forwardSpeed = 0.1f;
-    float Gravity = 9.8f;
+    float forwardSpeed = 1.0f;
+    float Gravity = -1.0f;
     float AirDensity = 1.225f;
     float DragCoefficient = 0.47f;
-    float ParticleRadius = 0.1f;
+    float ParticleRadius = 5.0f;
     float CollisionElasticity = 0.5f;
     float CollisionFriction = 0.5f;
+    float LifeSpan = 5.0f;
 
 
     std::vector<glm::vec3> positions;

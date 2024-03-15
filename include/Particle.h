@@ -38,5 +38,5 @@ public:
     float Radius = 0.1f;
     bool isFixed = false;
     float startLife = 1.0f;
-    float Life = 1.0f;
+    float Life = 10.0f;
 };

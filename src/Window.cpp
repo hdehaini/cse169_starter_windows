@@ -31,7 +31,7 @@ GLuint Window::shaderProgram;
 // Constructors and desctructors
 bool Window::initializeProgram() {
     // Create a shader program with a vertex shader and a fragment shader.
-    shaderProgram = LoadShaders("shaders/shader.vert", "shaders/shader.frag");
+    shaderProgram = LoadShaders("shaders/particle.vert", "shaders/particle.frag");
 
     // Check the shader program.
     if (!shaderProgram) {
@@ -170,35 +170,33 @@ void Window::displayCallback(GLFWwindow* window) {
     // ImGUI window creation
     ImGui::Begin("Change values");
 
-    // buttons to go to next and previous joint
-    // if (ImGui::Button("Next Joint") && skeleton->currJoint < skeleton->allJoints.size() - 1) {
-    //     skeleton->currJoint++;
-    // }
+    // ImGui for the following:
+    // Particle creation rate (particles per second)
+    // Initial position & variance (X, Y, Z)
+    // Initial velocity & variance (X, Y, Z)
+    // Initial life span & variance
+    // Gravity
+    // Air density
+    // Drag coefficient
+    // Particle radius (for both rendering & aerodynamic drag)
+    // Collision elasticity
+    // Collision friction
 
-    // if (ImGui::Button("Previous Joint") && skeleton->currJoint > 0) {
-    //     skeleton->currJoint--;
-    // }
-
-    // Joint* currentJoint = skeleton->allJoints[skeleton->currJoint];
-    
-    // int n = 0;
-    // for (DOF* dof : currentJoint->dofs) {
-    //     ImGui::SliderFloat("DOF slider: " + *std::to_string(n).c_str(), &dof->value, dof->min, dof->max);
-    //     n++;
-    // }
-
-    // // Reset button to reset dof values
-    // if (ImGui::Button("Reset")) {
-    //     for (DOF* dof : currentJoint->dofs) {
-    //         dof->value = 0.0f;
-    //         // skeleton->Load(filename);
-    //     }
-    // }
-
-    // // Toggle button to show the skin
-    // if (ImGui::Button("Toggle Skin")) {
-    //     skinDrawn = !skinDrawn;
-    // }
+    ImGui::SliderFloat("Position X", &fluid->positionX, -10.0f, 10.0f);
+    ImGui::SliderFloat("Position Y", &fluid->positionY, -10.0f, 10.0f);
+    ImGui::SliderFloat("Position Z", &fluid->positionZ, -10.0f, 10.0f);
+    ImGui::SliderFloat("Velocity X", &fluid->velX, -10.0f, 10.0f);
+    ImGui::SliderFloat("Velocity Y", &fluid->velY, -10.0f, 10.0f);
+    ImGui::SliderFloat("Velocity Z", &fluid->velZ, -10.0f, 10.0f);
+    ImGui::SliderInt("Particle Rate", &fluid->ParticleRate, 0, 100);
+    ImGui::SliderFloat("Particle Mass", &fluid->ParticleMass, 0.001f, 1.0f);
+    ImGui::SliderFloat("Life Span", &fluid->LifeSpan, 0.1f, 50.0f);
+    ImGui::SliderFloat("Gravity", &fluid->Gravity, -20.0f, 0.0f);
+    ImGui::SliderFloat("Air Density", &fluid->AirDensity, 0.1f, 10.0f);
+    ImGui::SliderFloat("Drag Coefficient", &fluid->DragCoefficient, 0.1f, 10.0f);
+    ImGui::SliderFloat("Particle Radius", &fluid->ParticleRadius, 0.1f, 10.0f);
+    ImGui::SliderFloat("Collision Elasticity", &fluid->CollisionElasticity, 0.0f, 1.0f);
+    ImGui::SliderFloat("Collision Friction", &fluid->CollisionFriction, 0.0f, 1.0f);
 
     // Ends the window
     ImGui::End();
