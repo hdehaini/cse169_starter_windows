@@ -4,7 +4,7 @@
 This project is a general-purpose particle system simulator designed to demonstrate various physics principles, including gravity, aerodynamic drag, and collision dynamics. It features a graphical user interface (GUI) that allows for real-time interaction and adjustment of numerous particle attributes.
 
 ## Demo
-[![Particle System demo](demo\thumbnail.png)](demo\video.mp4)
+[![Particle System demo](demo\thumbnail.png)](https://youtu.be/8vKJSkMxtQo)
 
 ## Features
 - **Dynamic Particle Simulation**: Continuously creates and destroys particles with a customizable rate, simulating real-world particle behavior.
