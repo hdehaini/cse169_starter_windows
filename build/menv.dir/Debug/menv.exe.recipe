@@ -2,13 +2,13 @@
 <Project>
   <ProjectOutputs>
     <ProjectOutput>
-      <FullPath>C:\Users\hsdeh\OneDrive\Documents\coding_projects_laptop\CSE-169\cse169_starter_windows\build\x64\Debug\ZERO_CHECK</FullPath>
+      <FullPath>C:\Users\hsdeh\OneDrive\Documents\Coding-Projects\UCSD\CSE-169\cse169_starter_windows\build\x64\Debug\ZERO_CHECK</FullPath>
     </ProjectOutput>
     <ProjectOutput>
-      <FullPath>C:\Users\hsdeh\OneDrive\Documents\coding_projects_laptop\CSE-169\cse169_starter_windows\build\x64\Debug\CopyShaders</FullPath>
+      <FullPath>C:\Users\hsdeh\OneDrive\Documents\Coding-Projects\UCSD\CSE-169\cse169_starter_windows\build\x64\Debug\CopyShaders</FullPath>
     </ProjectOutput>
     <ProjectOutput>
-      <FullPath>C:\Users\hsdeh\OneDrive\Documents\coding_projects_laptop\CSE-169\cse169_starter_windows\build\Debug\menv.exe</FullPath>
+      <FullPath>C:\Users\hsdeh\OneDrive\Documents\Coding-Projects\UCSD\CSE-169\cse169_starter_windows\build\Debug\menv.exe</FullPath>
     </ProjectOutput>
   </ProjectOutputs>
   <ContentFiles />

@@ -1,6 +1,6 @@
-^C:\USERS\HSDEH\ONEDRIVE\DOCUMENTS\CODING_PROJECTS_LAPTOP\CSE-169\CSE169_STARTER_WINDOWS\BUILD\CMAKEFILES\171D2B729F04217A8CD2FAFA8E958B01\GENERATE.STAMP.RULE
+^C:\USERS\HSDEH\ONEDRIVE\DOCUMENTS\CODING-PROJECTS\UCSD\CSE-169\CSE169_STARTER_WINDOWS\BUILD\CMAKEFILES\05A2584AF51A59B8FCB909B4AEF3325E\GENERATE.STAMP.RULE
 setlocal
-"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/hsdeh/OneDrive/Documents/coding_projects_laptop/CSE-169/cse169_starter_windows -BC:/Users/hsdeh/OneDrive/Documents/coding_projects_laptop/CSE-169/cse169_starter_windows/build --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file C:/Users/hsdeh/OneDrive/Documents/coding_projects_laptop/CSE-169/cse169_starter_windows/build/menv.sln
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/hsdeh/OneDrive/Documents/coding_projects_laptop/CSE-169/cse169_starter_windows -BC:/Users/hsdeh/OneDrive/Documents/Coding-Projects/UCSD/CSE-169/cse169_starter_windows/build --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file C:/Users/hsdeh/OneDrive/Documents/Coding-Projects/UCSD/CSE-169/cse169_starter_windows/build/menv.sln
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
