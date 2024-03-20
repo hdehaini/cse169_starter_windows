@@ -53,7 +53,7 @@ bool Window::initializeObjects() {
     // skeleton = new Skeleton();
     // skin = new Skin();
     // animation = new AnimationClip();
-    cloth = new Cloth(30, 30);
+    cloth = new Cloth(20, 20);
 
     // newPosX = cloth->Width;
     newPosY = cloth->Height;
@@ -181,72 +181,21 @@ void Window::displayCallback(GLFWwindow* window) {
     ImGui::Begin("Change values");
 
     // ImGui to control the position of the particles in the cloth if they are fixed
-    ImGui::SliderFloat("X Position", &newPosX, -10.0f, 20.0f);
+    // ImGui::SliderFloat("X Position", &newPosX, -10.0f, 20.0f);
     ImGui::SliderFloat("Y Position", &newPosY, 0.0f, cloth->Height + 10.0f);
     ImGui::SliderFloat("Z Position", &newPosZ, -10.0f, 20.0f);
 
     // if particle is fixed, set the new position while keeping the fixed particles in a row
     for(int i = 0; i < cloth->Particles.size(); i++) {
         if(cloth->Particles[i]->isFixed) {
-            // cloth->Particles[i]->Position.x = newPosX + i;
+            // cloth->Particles[i]->Position.x = newPosX;
             cloth->Particles[i]->Position.y = newPosY;
             cloth->Particles[i]->Position.z = newPosZ;
         }
     }
 
-    
-    
-    // // ImGui to rotate the particles in the cloth that are fixed around the z-axis
-    // ImGui::SliderFloat("Angle", &angle, -1.0f, 1.0f);
-    // float radians = glm::radians(angle);
-
-    // // Assuming originalFixedPositions is a member variable of the Cloth class that stores the original positions.
-    // for(size_t i = 0; i < cloth->Particles.size(); ++i) {
-    //     Particle* p = cloth->Particles[i];
-    //     if (p->isFixed) {
-    //         // Get the original position
-    //         glm::vec3 originalPos = cloth->positions[i];
-    //         // Apply rotation around the z-axis
-    //         p->Position.x = originalPos.x * glm::cos(radians) - originalPos.y * glm::sin(radians);
-    //         p->Position.y = originalPos.x * glm::sin(radians) + originalPos.y * glm::cos(radians);
-    //         // z remains the same since it's a rotation around the z-axis
-    //         p->Position.z = originalPos.z;
-    //     }
-    // }
-
     // ImGui to control the wind speed
     ImGui::SliderFloat("Wind Speed", &cloth->forwardSpeed, 0.0f, 1.0f);
-
-
-    // buttons to go to next and previous joint
-    // if (ImGui::Button("Next Joint") && skeleton->currJoint < skeleton->allJoints.size() - 1) {
-    //     skeleton->currJoint++;
-    // }
-
-    // if (ImGui::Button("Previous Joint") && skeleton->currJoint > 0) {
-    //     skeleton->currJoint--;
-    // }
-
-    // Joint* currentJoint = skeleton->allJoints[skeleton->currJoint];
-    
-    // int n = 0;
-    // for (DOF* dof : currentJoint->dofs) {
-    //     ImGui::SliderFloat("DOF slider: " + *std::to_string(n).c_str(), &dof->value, dof->min, dof->max);
-    //     n++;
-    // }
-
-    // // Reset button to reset dof values
-    // if (ImGui::Button("Reset")) {
-    //     for (DOF* dof : currentJoint->dofs) {
-    //         dof->value = 0.0f;
-    //         // skeleton->Load(filename);
-    //     }
-    // }
-
-    // // Toggle button to show the skin
-    // if (ImGui::Button("Toggle Skin")) {
-    //     skinDrawn = !skinDrawn;
-    // }
 
     // Ends the window
     ImGui::End();

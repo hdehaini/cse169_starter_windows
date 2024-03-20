@@ -1,88 +1,88 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="C:\Users\hsdeh\OneDrive\Documents\coding_projects_laptop\CSE-169\cse169_starter_windows\main.cpp">
+    <ClCompile Include="C:\Users\hsdeh\OneDrive\Documents\Coding-Projects\UCSD\CSE-169\cse169_starter_windows\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\hsdeh\OneDrive\Documents\coding_projects_laptop\CSE-169\cse169_starter_windows\src\Camera.cpp">
+    <ClCompile Include="C:\Users\hsdeh\OneDrive\Documents\Coding-Projects\UCSD\CSE-169\cse169_starter_windows\src\Camera.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\hsdeh\OneDrive\Documents\coding_projects_laptop\CSE-169\cse169_starter_windows\src\Cube.cpp">
+    <ClCompile Include="C:\Users\hsdeh\OneDrive\Documents\Coding-Projects\UCSD\CSE-169\cse169_starter_windows\src\Cube.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\hsdeh\OneDrive\Documents\coding_projects_laptop\CSE-169\cse169_starter_windows\src\Shader.cpp">
+    <ClCompile Include="C:\Users\hsdeh\OneDrive\Documents\Coding-Projects\UCSD\CSE-169\cse169_starter_windows\src\Shader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\hsdeh\OneDrive\Documents\coding_projects_laptop\CSE-169\cse169_starter_windows\src\Tokenizer.cpp">
+    <ClCompile Include="C:\Users\hsdeh\OneDrive\Documents\Coding-Projects\UCSD\CSE-169\cse169_starter_windows\src\Tokenizer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\hsdeh\OneDrive\Documents\coding_projects_laptop\CSE-169\cse169_starter_windows\src\Window.cpp">
+    <ClCompile Include="C:\Users\hsdeh\OneDrive\Documents\Coding-Projects\UCSD\CSE-169\cse169_starter_windows\src\Window.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\hsdeh\OneDrive\Documents\coding_projects_laptop\CSE-169\cse169_starter_windows\src\DOF.cpp">
+    <ClCompile Include="C:\Users\hsdeh\OneDrive\Documents\Coding-Projects\UCSD\CSE-169\cse169_starter_windows\src\DOF.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\hsdeh\OneDrive\Documents\coding_projects_laptop\CSE-169\cse169_starter_windows\src\Joint.cpp">
+    <ClCompile Include="C:\Users\hsdeh\OneDrive\Documents\Coding-Projects\UCSD\CSE-169\cse169_starter_windows\src\Joint.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\hsdeh\OneDrive\Documents\coding_projects_laptop\CSE-169\cse169_starter_windows\src\Skeleton.cpp">
+    <ClCompile Include="C:\Users\hsdeh\OneDrive\Documents\Coding-Projects\UCSD\CSE-169\cse169_starter_windows\src\Skeleton.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\hsdeh\OneDrive\Documents\coding_projects_laptop\CSE-169\cse169_starter_windows\src\Vertex.cpp">
+    <ClCompile Include="C:\Users\hsdeh\OneDrive\Documents\Coding-Projects\UCSD\CSE-169\cse169_starter_windows\src\Vertex.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\hsdeh\OneDrive\Documents\coding_projects_laptop\CSE-169\cse169_starter_windows\src\Triangle.cpp">
+    <ClCompile Include="C:\Users\hsdeh\OneDrive\Documents\Coding-Projects\UCSD\CSE-169\cse169_starter_windows\src\Triangle.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\hsdeh\OneDrive\Documents\coding_projects_laptop\CSE-169\cse169_starter_windows\src\Skin.cpp">
+    <ClCompile Include="C:\Users\hsdeh\OneDrive\Documents\Coding-Projects\UCSD\CSE-169\cse169_starter_windows\src\Skin.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\hsdeh\OneDrive\Documents\coding_projects_laptop\CSE-169\cse169_starter_windows\src\AnimationClip.cpp">
+    <ClCompile Include="C:\Users\hsdeh\OneDrive\Documents\Coding-Projects\UCSD\CSE-169\cse169_starter_windows\src\AnimationClip.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\hsdeh\OneDrive\Documents\coding_projects_laptop\CSE-169\cse169_starter_windows\src\Channel.cpp">
+    <ClCompile Include="C:\Users\hsdeh\OneDrive\Documents\Coding-Projects\UCSD\CSE-169\cse169_starter_windows\src\Channel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\hsdeh\OneDrive\Documents\coding_projects_laptop\CSE-169\cse169_starter_windows\src\Keyframe.cpp">
+    <ClCompile Include="C:\Users\hsdeh\OneDrive\Documents\Coding-Projects\UCSD\CSE-169\cse169_starter_windows\src\Keyframe.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\hsdeh\OneDrive\Documents\coding_projects_laptop\CSE-169\cse169_starter_windows\src\Particle.cpp">
+    <ClCompile Include="C:\Users\hsdeh\OneDrive\Documents\Coding-Projects\UCSD\CSE-169\cse169_starter_windows\src\Particle.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\hsdeh\OneDrive\Documents\coding_projects_laptop\CSE-169\cse169_starter_windows\src\SpringDamper.cpp">
+    <ClCompile Include="C:\Users\hsdeh\OneDrive\Documents\Coding-Projects\UCSD\CSE-169\cse169_starter_windows\src\SpringDamper.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\hsdeh\OneDrive\Documents\coding_projects_laptop\CSE-169\cse169_starter_windows\src\Cloth.cpp">
+    <ClCompile Include="C:\Users\hsdeh\OneDrive\Documents\Coding-Projects\UCSD\CSE-169\cse169_starter_windows\src\Cloth.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\hsdeh\OneDrive\Documents\coding_projects_laptop\CSE-169\cse169_starter_windows\src\imgui\imgui.cpp">
+    <ClCompile Include="C:\Users\hsdeh\OneDrive\Documents\Coding-Projects\UCSD\CSE-169\cse169_starter_windows\src\imgui\imgui.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\hsdeh\OneDrive\Documents\coding_projects_laptop\CSE-169\cse169_starter_windows\src\imgui\imgui_draw.cpp">
+    <ClCompile Include="C:\Users\hsdeh\OneDrive\Documents\Coding-Projects\UCSD\CSE-169\cse169_starter_windows\src\imgui\imgui_draw.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\hsdeh\OneDrive\Documents\coding_projects_laptop\CSE-169\cse169_starter_windows\src\imgui\imgui_impl_glfw.cpp">
+    <ClCompile Include="C:\Users\hsdeh\OneDrive\Documents\Coding-Projects\UCSD\CSE-169\cse169_starter_windows\src\imgui\imgui_impl_glfw.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\hsdeh\OneDrive\Documents\coding_projects_laptop\CSE-169\cse169_starter_windows\src\imgui\imgui_impl_opengl3.cpp">
+    <ClCompile Include="C:\Users\hsdeh\OneDrive\Documents\Coding-Projects\UCSD\CSE-169\cse169_starter_windows\src\imgui\imgui_impl_opengl3.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\hsdeh\OneDrive\Documents\coding_projects_laptop\CSE-169\cse169_starter_windows\src\imgui\imgui_widgets.cpp">
+    <ClCompile Include="C:\Users\hsdeh\OneDrive\Documents\Coding-Projects\UCSD\CSE-169\cse169_starter_windows\src\imgui\imgui_widgets.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\hsdeh\OneDrive\Documents\coding_projects_laptop\CSE-169\cse169_starter_windows\src\imgui\imgui_demo.cpp">
+    <ClCompile Include="C:\Users\hsdeh\OneDrive\Documents\Coding-Projects\UCSD\CSE-169\cse169_starter_windows\src\imgui\imgui_demo.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\hsdeh\OneDrive\Documents\coding_projects_laptop\CSE-169\cse169_starter_windows\src\imgui\imgui_tables.cpp">
+    <ClCompile Include="C:\Users\hsdeh\OneDrive\Documents\Coding-Projects\UCSD\CSE-169\cse169_starter_windows\src\imgui\imgui_tables.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="C:\Users\hsdeh\OneDrive\Documents\coding_projects_laptop\CSE-169\cse169_starter_windows\CMakeLists.txt" />
+    <CustomBuild Include="C:\Users\hsdeh\OneDrive\Documents\Coding-Projects\UCSD\CSE-169\cse169_starter_windows\CMakeLists.txt" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Source Files">
-      <UniqueIdentifier>{89B015A6-F28C-35DA-9599-508AA499A2D2}</UniqueIdentifier>
+      <UniqueIdentifier>{98C584C6-10C6-31E9-B465-9A7FC485F6C4}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
