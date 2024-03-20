@@ -29,5 +29,5 @@ To run this particle system simulation, clone the repository to your local machi
 
 ```bash
 git clone https://github.com/hdehaini/cse169_starter_windows/tree/particle-system
-cd C:\Users\hsdeh\OneDrive\Documents\coding_projects_laptop\CSE-169\cse169_starter_windows\build\Debug
-.\menv.exe
+cd ./cse169_starter_windows/build/Debug
+./menv.exe
